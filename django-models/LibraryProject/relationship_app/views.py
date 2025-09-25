@@ -8,7 +8,7 @@ from .models import Library
 
 class LibraryDetailView(DetailView):
     model = Library
-    template_name = 'library_detail.html'  # Specify the template for rendering
+    template_name = 'relationship_app/library_detail.html'  # Specify the template for rendering
     context_object_name = 'library'  # This will be used in the template
 
     def get_queryset(self):
