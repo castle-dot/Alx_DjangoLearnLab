@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 
 from relationship_app.models import Book
-from django.views.generic import DetailView
+from django.views.generic.detail import DetailView
 from relationship_app.models import Library
 from .models import Library
 
