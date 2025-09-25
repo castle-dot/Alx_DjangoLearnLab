@@ -17,4 +17,4 @@ class LibraryDetailView(DetailView):
 def list_books(request):
     # Get all books from the database
     books = Book.objects.all()
-    return render(request, 'list_books.html', {'books': books})
+    return render(request, 'relationship_app/list_books.html', {'books': books})
