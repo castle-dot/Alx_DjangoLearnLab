@@ -1,3 +1,20 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+from relationship_app.models import Book
+from django.views.generic import DetailView
+from relationship_app.models import Library
+
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = 'library_detail.html'  # Specify the template for rendering
+    context_object_name = 'library'  # This will be used in the template
+
+    def get_queryset(self):
+        # Optionally, you can filter libraries if needed
+        return Library.objects.all()
+
+def list_books(request):
+    # Get all books from the database
+    books = Book.objects.all()
+    return render(request, 'list_books.html', {'books': books})
