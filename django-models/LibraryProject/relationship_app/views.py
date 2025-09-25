@@ -4,6 +4,7 @@ from django.shortcuts import render
 from relationship_app.models import Book
 from django.views.generic import DetailView
 from relationship_app.models import Library
+from .models import Library
 
 class LibraryDetailView(DetailView):
     model = Library
