@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView, LogoutView
 
 
 from relationship_app.models import Book
@@ -19,3 +22,13 @@ def list_books(request):
     # Get all books from the database
     books = Book.objects.all()
     return render(request, 'relationship_app/list_books.html', {'books': books})
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # Save the user
+            login(request, user)  # Log the user in after registration
+            return redirect('home')  # Redirect to home or a dashboard page
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})
