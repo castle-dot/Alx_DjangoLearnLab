@@ -43,6 +43,11 @@ def user_is_admin(user):
 def admin_view(request):
     return render(request, 'relationship_app/admin_view.html')
 
+@login_required
+@user_passes_test(user_is_admin)
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html')
+
 def user_is_librarian(user):
     return user.userprofile.role == 'Librarian'
 
