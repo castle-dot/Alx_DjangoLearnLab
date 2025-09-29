@@ -2,6 +2,9 @@ from django.contrib import admin
 from .models import Book
 from .models import CustomUser
 from django.contrib.auth.admin import UserAdmin 
+from .models import Article
+from django.contrib.auth.models import Permission, Group
+from django.contrib.contenttypes.models import GroupAdmin
 
 class BookAdmin(admin.ModelAdmin):
     
@@ -34,3 +37,6 @@ class CustomUserAdmin(UserAdmin):
     ordering = ['username']
 
 admin.site.register(CustomUser, CustomUserAdmin)
+
+admin.site.register(Article)
+admin.site.register(Group, GroupAdmin)

@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-trzgzwhm!=*l^a&c6nqa5efzdsm-i4mygf44!9vp^#4p_!!b%j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'relationship_app',
+    'csp',
     
 ]
 
@@ -49,8 +50,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware', 
 ]
 
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'", "data:",)
+CSP_FONT_SRC = ("'self'",)
 ROOT_URLCONF = 'LibraryProject.urls'
 
 TEMPLATES = [
@@ -122,3 +129,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'  # Prevent embedding of your site in iframes
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent browsers from sniffing content types
+
+# Ensure that cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True  # CSRF cookie is only sent over HTTPS
+SESSION_COOKIE_SECURE = True  # Session cookie is only sent over HTTPS
+
+# Also add a security key for CSRF cookie
+CSRF_COOKIE_HTTPONLY = True  # Ensure CSRF cookies cannot be accessed by JavaScript
+
+# Optional (for stronger security, you may also want to enable)
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS
