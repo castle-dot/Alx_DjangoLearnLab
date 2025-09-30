@@ -4,7 +4,12 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import Book  # The model we are querying
 from .serializers import BookSerializer  # The serializer we just created
+from rest_framework import viewsets
 
 class BookList(generics.ListAPIView):
     queryset = Book.objects.all()  # Get all Book objects
     serializer_class = BookSerializer
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()  # This retrieves all books from the database
+    serializer_class = BookSerializer  # This specifies the serializer to use for converting model instances to JSON and vice versa
