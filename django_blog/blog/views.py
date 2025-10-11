@@ -16,6 +16,7 @@ from .forms import CommentForm
 from django.views.generic import ListView
 from django.db.models import Q
 from .models import Post
+from taggit.models import Tag
 
 # Add a comment to a post
 class CommentCreateView(LoginRequiredMixin, CreateView):
@@ -165,4 +166,15 @@ class PostSearchView(ListView):
                 Q(content__icontains=query) |
                 Q(tags__name__icontains=query)
             ).distinct()
+        return Post.objects.none()
+
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/posts_by_tag.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        tag_slug = self.kwargs.get('tag_slug')
+        if tag_slug:
+            return Post.objects.filter(tags__slug=tag_slug).distinct()
         return Post.objects.none()
