@@ -12,6 +12,10 @@ from relationship_app.models import Book
 from django.views.generic.detail import DetailView
 from relationship_app.models import Library
 from .models import Library
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+from .models import Book
+from .forms import BookForm
 
 class LibraryDetailView(DetailView):
     model = Library
